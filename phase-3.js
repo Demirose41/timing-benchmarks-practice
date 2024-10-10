@@ -1,19 +1,38 @@
 const [addNums, addManyNums] = require("./phase-1");
 
+let addNums10Times = [];
+let addManyNums10Times = [];
 function addNums10Timing(increment) {
-  // Copy your `addNums10` code here
-  // Then, add timing code
+  let total = 0;
+  let totals = [];
+  
+  console.time("addNums");
+  for(let i = increment; i <= 10 * increment; i += increment){
+    total = addNums(i);
+    console.timeLog("addNums");
+    totals = [...totals, total];
+    addNums10Times = [...addNums10Times, Date.now()];
+  }
 
-  // Your code here
+  console.timeEnd("addNums");
+  return totals;
 
 }
 
 
 function addManyNums10Timing(increment) {
-// Copy your `addManyNums10` code here
-// Then, add timing code
+  console.time("addManyNums");
+  let total = 0;
+  let totals = [];
 
-  // Your code here
+  for(let n = increment; n <= 10 * increment; n += increment){
+    total = addManyNums(n);
+    console.timeLog("addManyNums");
+    totals = [...totals, total];
+    addManyNums10Times = [...addManyNums10Times, Date.now()];
+  }
+  console.timeEnd("addManyNums");
+  return totals;
 
 }
 
@@ -27,3 +46,7 @@ console.log("\n***********\n");
 n = 1000
 console.log(`addManyNums(${n}): `);
 addManyNums10Timing(5000);
+console.log("\n***********\n");
+addNums10Times.forEach((time)=> console.log(time - addNums10Times[0] ));
+console.log("\n***********\n");
+addManyNums10Times.forEach((time)=> console.log(time - addManyNums10Times[0]));
